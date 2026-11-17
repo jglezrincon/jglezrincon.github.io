@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Julia González Rincón</title>
+<meta name="description" content="Julia González Rincón, PhD — Implantación de la Medicina Personalizada de Precisión en el sistema sanitario: datos clínicos y ómicos, IA, farmacogenómica e interoperabilidad. Senior Genomics &amp; AI Consultant, Kyndryl España.">
+<meta property="og:title" content="Julia González Rincón — Del laboratorio a la consulta">
+<meta property="og:description" content="Medicina personalizada de precisión: datos clínicos, ómicos e IA convertidos en decisiones para cada paciente.">
+<meta name="theme-color" content="#0a1116">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Un solo mundo visual oscuro, como un visor genómico: lecturas en cian, variantes en ámbar */
+  --bg:#0a1116; --panel:#101b22; --panel-2:#14232c; --ink:#eaf2f4; --muted:#9db0b8; --line:#1e313b;
+  --accent:#3fd0c9; --variant:#ffb547; --todo:#ffb547;
+  --display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.6}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--variant);outline-offset:3px;border-radius:6px}
+html[data-lang="es"] [lang="en"], html[data-lang="en"] [lang="es"]{display:none !important}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--bg);padding:8px 12px;border-radius:6px;z-index:20}
+.skip:focus{left:16px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+.todo{display:inline-block;font:500 12px var(--mono);color:var(--todo);border:1px dashed var(--todo);border-radius:4px;padding:0 6px;line-height:1.7;background:rgba(255,181,71,.08)}
+
+/* Header */
+header.top{position:sticky;top:0;z-index:10;background:rgba(10,17,22,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;gap:22px;padding:12px 22px;max-width:1140px;margin:0 auto;flex-wrap:wrap}
+.brand{font:800 18px var(--display);color:var(--ink);text-decoration:none;letter-spacing:-.01em}
+.brand span{color:var(--accent)}
+nav.links{display:flex;gap:20px;flex:1;flex-wrap:wrap}
+nav.links a{color:var(--muted);text-decoration:none;font-size:14px}
+nav.links a:hover{color:var(--ink)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.lang button{font:500 12px var(--mono);background:transparent;color:var(--muted);border:0;padding:6px 12px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--accent);color:#04201f}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+#reads{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 0%,rgba(10,17,22,.88) 45%,rgba(10,17,22,.25) 100%);pointer-events:none}
+.hero-in{position:relative;z-index:1;padding:88px 22px 64px;max-width:1140px;margin:0 auto}
+.kicker{display:inline-flex;gap:10px;align-items:center;font:500 13px var(--mono);color:var(--accent);border:1px solid rgba(63,208,201,.35);background:rgba(63,208,201,.08);padding:5px 12px;border-radius:999px}
+.kicker i{width:8px;height:8px;border-radius:50%;background:var(--variant);box-shadow:0 0 12px var(--variant)}
+h1{font:800 clamp(44px,7.4vw,96px)/.98 var(--display);letter-spacing:-.03em;margin:22px 0 22px;max-width:14ch;text-wrap:balance}
+h1 .hl{color:var(--variant)}
+.id{display:flex;align-items:center;gap:16px;margin-bottom:6px}
+.avatar{width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);flex:none}
+.who{font-size:20px;margin:0 0 6px;font-weight:600}
+.who small{display:block;font-weight:400;color:var(--muted);font-size:16px;margin-top:4px}
+.lede{font-size:18.5px;color:var(--muted);max-width:56ch;margin:20px 0 30px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 20px;border-radius:10px;font-weight:600;font-size:15.5px;text-decoration:none;border:1px solid var(--line);color:var(--ink);background:var(--panel);transition:transform .15s,border-color .15s}
+.btn:hover{transform:translateY(-1px);border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:#04201f;border-color:var(--accent)}
+@media (prefers-reduced-motion: reduce){.btn{transition:none}.btn:hover{transform:none}}
+
+/* Stats strip */
+.stats-band{position:relative;z-index:1;border-top:1px solid var(--line);background:rgba(10,17,22,.75)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat:first-child{padding-left:0}
+.stat{padding:24px 22px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat .n{font:800 44px/1 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat .n em{font-style:normal;color:var(--accent)}
+.stat .l{color:var(--muted);font-size:14px;margin-top:8px}
+
+/* Sections */
+section{padding:96px 0;border-bottom:1px solid var(--line);scroll-margin-top:64px}
+.eyebrow{font:500 12.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h2{font:800 clamp(34px,4.8vw,56px)/1.02 var(--display);letter-spacing:-.025em;margin:0 0 16px;max-width:20ch;text-wrap:balance}
+.intro{color:var(--muted);font-size:18px;max-width:60ch;margin:0 0 44px}
+h3{font:600 20px/1.25 var(--display);margin:0;letter-spacing:-.01em}
+
+/* Value props */
+.props{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.prop{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px}
+.prop .ix{font:500 13px var(--mono);color:var(--variant)}
+.prop h3{margin:14px 0 10px}
+.prop p{color:var(--muted);margin:0}
+
+/* Feature case */
+.case{display:grid;grid-template-columns:1.15fr 1fr;gap:0;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--panel)}
+.case-l{padding:40px}
+.case-r{padding:40px;background:var(--panel-2);border-left:1px solid var(--line)}
+.award{display:inline-flex;align-items:center;gap:10px;background:var(--variant);color:#2a1800;font:600 13px var(--mono);padding:6px 12px;border-radius:999px;margin-bottom:20px}
+.case h3{font-size:30px;font-weight:800;margin-bottom:12px}
+.case p{color:var(--muted);margin:0 0 20px;max-width:52ch}
+.modules{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+.modules li{display:grid;grid-template-columns:28px 1fr;gap:10px}
+.modules b{display:block;font-weight:600}
+.modules span.d{color:var(--muted);font-size:15px}
+.dot{width:12px;height:12px;border-radius:3px;background:var(--accent);margin-top:7px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:400 12.5px var(--mono);border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:5px 12px;color:var(--ink)}
+
+/* Career */
+.jobs{display:grid;gap:18px}
+.job{display:grid;grid-template-columns:200px 1fr;gap:28px;padding:30px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
+.job .when{font:500 13px var(--mono);color:var(--muted)}
+.job .co{font:800 22px var(--display);margin-top:6px;letter-spacing:-.01em}
+.job .unit{color:var(--muted);font-size:14px;margin-top:4px}
+.job ul{margin:10px 0 0;padding-left:18px}
+.job li{margin:7px 0;max-width:70ch}
+.job li::marker{color:var(--accent)}
+
+/* Skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.skill{border-top:2px solid var(--accent);padding-top:16px}
+.skill h3{font-size:18px;margin-bottom:12px}
+
+/* Talks */
+.talks{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+.talk{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.talk.feature{grid-column:1/-1;background:linear-gradient(120deg,var(--panel-2),var(--panel));border-color:rgba(255,181,71,.4)}
+.talk .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.kind{font:500 11.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:#04201f;background:var(--accent);border-radius:4px;padding:2px 7px}
+.kind.award-k{background:var(--variant);color:#2a1800}
+.kind.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.talk .d{font:500 13px var(--mono);color:var(--muted)}
+.talk h3{font-size:18px}
+.talk.feature h3{font-size:26px;font-weight:800;max-width:30ch}
+.talk p{margin:0;color:var(--muted);font-size:15px}
+
+.pubs{margin:0;padding:0;list-style:none;counter-reset:p;display:grid;gap:0;border-top:1px solid var(--line)}
+.pubs li{counter-increment:p;display:grid;grid-template-columns:44px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.pubs li::before{content:counter(p,decimal-leading-zero);font:500 13px var(--mono);color:var(--accent);padding-top:3px}
+.pubs .j{font-style:italic;color:var(--muted)}
+
+/* Two-col for teaching + education */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.list{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}
+.list li{padding:18px 0;border-bottom:1px solid var(--line)}
+.list .d{font:500 13px var(--mono);color:var(--muted)}
+.list b{display:block;font-weight:600;margin:4px 0 2px}
+.list p{margin:0;color:var(--muted);font-size:15px}
+
+/* Medicina 5P */
+.p5{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:36px}
+.p5 div{background:var(--panel);padding:24px 20px}
+.p5 .big{font:800 44px/1 var(--display);color:var(--variant)}
+.p5 h3{font-size:18px;margin:10px 0 8px}
+.p5 p{margin:0;color:var(--muted);font-size:14.5px}
+@media (max-width:900px){.p5{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.p5{grid-template-columns:1fr}}
+/* Map of places */
+.places{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.place{font:500 13px var(--mono);border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:var(--panel)}
+.place b{color:var(--variant);font-weight:500}
+/* Contact band */
+.contact{padding:110px 0;text-align:left;border-bottom:0;background:radial-gradient(900px 400px at 85% 20%,rgba(63,208,201,.14),transparent 60%)}
+.contact h2{max-width:18ch}
+
+footer{border-top:1px solid var(--line)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:26px 22px 44px;color:var(--muted);font:400 13px var(--mono)}
+
+@media (max-width:900px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .props{grid-template-columns:1fr}
+  .case{grid-template-columns:1fr}
+  .case-r{border-left:0;border-top:1px solid var(--line)}
+  .job{grid-template-columns:1fr;gap:10px}
+  .duo{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .hero-in{padding:56px 22px 44px}
+  .case-l,.case-r{padding:26px}
+  section{padding:68px 0}
+  .stat .n{font-size:36px}
+  nav.links{order:3;flex-basis:100%;gap:14px}
+  .talks{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#aporto"><span lang="es">Saltar al contenido</span><span lang="en">Skip to content</span></a>
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#top">Julia González Rincón<span>.</span></a>
+    <nav class="links" aria-label="Secciones">
+      <a href="#aporto"><span lang="es">Qué aporto</span><span lang="en">What I bring</span></a>
+      <a href="#vision"><span lang="es">Visión</span><span lang="en">Vision</span></a>
+      <a href="#caso"><span lang="es">Caso destacado</span><span lang="en">Featured work</span></a>
+      <a href="#trayectoria"><span lang="es">Trayectoria</span><span lang="en">Career</span></a>
+      <a href="#presencia"><span lang="es">Ponencias</span><span lang="en">Talks</span></a>
+      <a href="#docencia"><span lang="es">Docencia</span><span lang="en">Teaching</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" id="btn-es" data-set="es" aria-pressed="true">ES</button>
+      <button type="button" id="btn-en" data-set="en" aria-pressed="false">EN</button>
+    </div>
+    <a class="btn primary" href="#contacto" style="padding:8px 14px;font-size:14px"><span lang="es">Hablemos</span><span lang="en">Let’s talk</span></a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <canvas id="reads" aria-hidden="true"></canvas>
+    <div class="hero-in">
+      <span class="kicker"><i></i><span lang="es">Medicina Personalizada de Precisión · Madrid</span><span lang="en">Personalised Precision Medicine · Madrid</span></span>
+      <h1>
+        <span lang="es">Medicina para cada <span class="hl">paciente.</span></span>
+        <span lang="en">Medicine for each <span class="hl">patient.</span></span>
+      </h1>
+      <div class="id"><img class="avatar" src="data:image/jpeg;base64,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" alt="Julia González Rincón"><p class="who" style="margin:0">Julia González Rincón, PhD
+        <small><span lang="es">Senior Genomics &amp; AI Consultant · Referente en salud en Kyndryl España</span><span lang="en">Senior Genomics &amp; AI Consultant · Go-to healthcare expert at Kyndryl Spain</span></small>
+      </p></div>
+      <p class="lede">
+        <span lang="es">Doctora en genética oncológica. Ayudo a los servicios de salud a implantar la Medicina Personalizada de Precisión: datos clínicos y ómicos estructurados, interoperables y analizados con IA para un abordaje preventivo, diagnóstico y terapéutico más eficaz y seguro, con equidad en todo el territorio.</span>
+        <span lang="en">PhD in cancer genetics. I help health services implement Personalised Precision Medicine: structured, interoperable clinical and omic data analysed with AI, for safer and more effective prevention, diagnosis and treatment, delivered equitably across the region.</span>
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="#contacto"><span lang="es">Contactar</span><span lang="en">Get in touch</span> →</a>
+        <a class="btn" href="https://www.linkedin.com/in/julia-gonz%C3%A1lez-rinc%C3%B3n-7b789149/">LinkedIn</a>
+        <a class="btn" href="https://scholar.google.es/citations?user=VBL-ZlgAAAAJ&amp;hl=es">Google Scholar</a>
+      </div>
+    </div>
+    <div class="stats-band"><div class="stats wrap" style="padding:0">
+      <div class="stat"><div class="n">13</div><div class="l"><span lang="es">años en datos biomédicos y genómica</span><span lang="en">years in biomedical data and genomics</span></div></div>
+      <div class="stat"><div class="n">14</div><div class="l"><span lang="es">publicaciones científicas</span><span lang="en">scientific publications</span></div></div>
+      <div class="stat"><div class="n">2</div><div class="l"><span lang="es">plataformas regionales de medicina de precisión: Murcia e Illes Balears</span><span lang="en">regional precision-medicine platforms: Murcia and the Balearic Islands</span></div></div>
+      <div class="stat"><div class="n">2026</div><div class="l"><span lang="es">Premio ASLAN · salud digital</span><span lang="en">ASLAN Award · digital health</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- QUÉ APORTO -->
+  <section id="aporto">
+    <div class="wrap">
+      <div class="eyebrow"><span lang="es">Qué aporto</span><span lang="en">What I bring</span></div>
+      <h2><span lang="es">Hablo ciencia con los clínicos, datos con los ingenieros y negocio con la dirección.</span><span lang="en">I speak science with clinicians, data with engineers and business with leadership.</span></h2>
+      <p class="intro"><span lang="es">La medicina personalizada necesita a alguien que entienda la biología, el dato clínico y cómo funciona un hospital. He trabajado en los tres sitios: el laboratorio de investigación, el diagnóstico genómico y los proyectos de salud digital.</span><span lang="en">Personalised medicine needs people who understand the biology, the clinical data and how a hospital actually works. I have worked in all three: the research lab, genomic diagnostics and digital health projects.</span></p>
+      <div class="props">
+        <article class="prop"><div class="ix">01 · <span lang="es">Evidencia</span><span lang="en">Evidence</span></div><h3><span lang="es">Del biomarcador a la evidencia</span><span lang="en">From biomarker to evidence</span></h3><p><span lang="es">En genómica desde el máster en Genética Humana (2013). Doctorado en linfomas con NGS de la poyata al análisis bioinformático, y estancias en París, Nueva York y Suiza.</span><span lang="en">In genomics since my master’s in Human Genetics (2013). PhD on lymphoma with NGS from bench to bioinformatics, plus research stays in Paris, New York and Switzerland.</span></p></article>
+        <article class="prop"><div class="ix">02 · <span lang="es">Implantación</span><span lang="en">Implementation</span></div><h3><span lang="es">De la estrategia a la práctica clínica</span><span lang="en">From strategy to clinical practice</span></h3><p><span lang="es">He diseñado y liderado dos plataformas regionales, en Murcia y en Illes Balears, que hacen operativa la cartera de pruebas genéticas: datos estructurados, farmacogenómica, IA sobre texto clínico e interoperabilidad HL7/FHIR.</span><span lang="en">I have designed and led two regional platforms, in Murcia and the Balearic Islands, that put the genetic testing portfolio into practice: structured data, pharmacogenomics, AI on clinical text and HL7/FHIR interoperability.</span></p></article>
+        <article class="prop"><div class="ix">03 · <span lang="es">Alianzas</span><span lang="en">Partnerships</span></div><h3><span lang="es">Clínicos, gestores y tecnología en la misma mesa</span><span lang="en">Clinicians, managers and technology at one table</span></h3><p><span lang="es">Jefa de proyecto, relación con clientes y líderes de opinión, preventa y licitaciones públicas. Máster en Big Data y en Dirección de Empresas Biotecnológicas.</span><span lang="en">Project lead, client and key-opinion-leader relations, presales and public tenders. Master’s degrees in Big Data and in Biotech Company Management.</span></p></article>
+      </div>
+      <div class="places" aria-label="Áreas">
+        <span class="place"><b>●</b> <span lang="es">Medicina Personalizada de Precisión</span><span lang="en">Personalised Precision Medicine</span></span>
+        <span class="place"><b>●</b> <span lang="es">Oncología de precisión</span><span lang="en">Precision oncology</span></span>
+        <span class="place"><b>●</b> <span lang="es">Farmacogenómica y prescripción personalizada</span><span lang="en">Pharmacogenomics and personalised prescribing</span></span>
+        <span class="place"><b>●</b> <span lang="es">Cartera de pruebas genéticas del SNS</span><span lang="en">Spanish NHS genetic testing portfolio</span></span>
+        <span class="place"><b>●</b> <span lang="es">IA y Big Data en salud</span><span lang="en">AI and Big Data in healthcare</span></span>
+        <span class="place"><b>●</b> <span lang="es">Datos estructurados e interoperabilidad</span><span lang="en">Structured data and interoperability</span></span>
+        <span class="place"><b>●</b> <span lang="es">Salud digital</span><span lang="en">Digital health</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDICINA 5P -->
+  <section id="vision">
+    <div class="wrap">
+      <div class="eyebrow"><span lang="es">Mi visión</span><span lang="en">My view</span></div>
+      <h2><span lang="es">Medicina 5P: un cambio de paradigma que se construye con datos.</span><span lang="en">5P medicine: a paradigm shift built on data.</span></h2>
+      <p class="intro"><span lang="es">La Medicina Personalizada de Precisión cambia cómo prevenimos, diagnosticamos y tratamos. Así contribuye mi trabajo a cada una de sus cinco dimensiones.</span><span lang="en">Personalised Precision Medicine changes how we prevent, diagnose and treat. This is how my work contributes to each of its five dimensions.</span></p>
+      <div class="p5">
+        <div><div class="big">P</div><h3><span lang="es">Personalizada</span><span lang="en">Personalised</span></h3><p><span lang="es">Informes de farmacogenómica que adaptan el tratamiento al perfil de cada paciente.</span><span lang="en">Pharmacogenomic reports that tailor treatment to each patient’s profile.</span></p></div>
+        <div><div class="big">P</div><h3><span lang="es">Predictiva</span><span lang="en">Predictive</span></h3><p><span lang="es">Firmas génicas para anticipar la evolución de la enfermedad, como la transformación del linfoma folicular.</span><span lang="en">Gene signatures that anticipate disease course, such as follicular lymphoma transformation.</span></p></div>
+        <div><div class="big">P</div><h3><span lang="es">Preventiva</span><span lang="en">Preventive</span></h3><p><span lang="es">Prescripción guiada por el genotipo para evitar reacciones adversas y fracasos terapéuticos.</span><span lang="en">Genotype-guided prescribing to avoid adverse reactions and treatment failure.</span></p></div>
+        <div><div class="big">P</div><h3><span lang="es">Participativa</span><span lang="en">Participatory</span></h3><p><span lang="es">Consentimiento informado digital que da al paciente control sobre el uso de sus datos.</span><span lang="en">Digital informed consent that gives patients control over how their data is used.</span></p></div>
+        <div><div class="big">P</div><h3><span lang="es">Poblacional</span><span lang="en">Population</span></h3><p><span lang="es">Plataformas regionales que llevan la misma cartera de pruebas a todos los hospitales, con equidad.</span><span lang="en">Regional platforms that bring the same testing portfolio to every hospital, equitably.</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASO DESTACADO -->
+  <section id="caso">
+    <div class="wrap">
+      <div class="eyebrow"><span lang="es">Caso destacado · mi primer proyecto en Kyndryl</span><span lang="en">Featured work · my first Kyndryl project</span></div>
+      <h2><span lang="es">Medicina de precisión para todo un servicio de salud.</span><span lang="en">Precision medicine for an entire health service.</span></h2>
+      <p class="intro" style="margin-top:8px"><span lang="es">El hilo conductor de mi carrera: en 2017 diseñé en NIMGenetics la anotación automática de fenotipos HPO sobre textos médicos. En 2025 ese fenotipado con IA ya funciona en producción para todo un servicio público de salud.</span><span lang="en">The thread through my career: in 2017 at NIMGenetics I designed automated HPO annotation of medical texts. By 2025 that AI phenotyping was running in production for an entire public health service.</span></p>
+      <div class="case" style="margin-top:28px">
+        <div class="case-l">
+          <span class="award">★ <span lang="es">Premio ASLAN 2026 · Salud digital</span><span lang="en">ASLAN Award 2026 · Digital health</span></span>
+          <h3>GENIB6P · SIGenES</h3>
+          <p><span lang="es">Plataforma del Servei de Salut de les Illes Balears (IBSalut) en Google Cloud que reúne peticiones, resultados e interpretación genómica en un único flujo clínico. Soy la especialista en genómica y responsable funcional del proyecto.</span><span lang="en">The Balearic Islands Health Service (IBSalut) platform on Google Cloud that brings genomic requests, results and interpretation into a single clinical workflow. I am the project’s genomics specialist and functional lead.</span></p>
+          <div class="chips"><span class="chip">Google Cloud</span><span class="chip">HL7 v2 · FHIR</span><span class="chip">LOINC · SNOMED CT · HPO</span><span class="chip">CPIC · DPWG</span><span class="chip">GRCh37 → GRCh38</span></div>
+        </div>
+        <div class="case-r">
+          <ul class="modules">
+            <li><i class="dot"></i><div><b><span lang="es">Farmacogenómica</span><span lang="en">Pharmacogenomics</span></b><span class="d"><span lang="es">Catálogo de fenotipos, informe clínico y fenoconversión dinámica.</span><span lang="en">Phenotype catalog, clinical report and dynamic phenoconversion.</span></span></div></li>
+            <li><i class="dot"></i><div><b><span lang="es">Fenotipado con IA</span><span lang="en">AI phenotyping</span></b><span class="d"><span lang="es">Del texto clínico a términos HPO, en producción.</span><span lang="en">From clinical text to HPO terms, in production.</span></span></div></li>
+            <li><i class="dot"></i><div><b><span lang="es">Integraciones</span><span lang="en">Integrations</span></b><span class="d"><span lang="es">Sistema de laboratorio, Emedgene, Illumina Connected Insights y Geneyx.</span><span lang="en">Lab system, Emedgene, Illumina Connected Insights and Geneyx.</span></span></div></li>
+            <li><i class="dot"></i><div><b><span lang="es">Consentimiento informado</span><span lang="en">Informed consent</span></b><span class="d"><span lang="es">Modelo de datos y ciclo de vida completo del consentimiento.</span><span lang="en">Data model and full consent lifecycle.</span></span></div></li>
+            <li><i class="dot"></i><div><b><span lang="es">Catálogo maestro</span><span lang="en">Master catalog</span></b><span class="d"><span lang="es">Pruebas genómicas codificadas con LOINC, SNOMED CT, HPO y CIE-10.</span><span lang="en">Genomic tests coded with LOINC, SNOMED CT, HPO and ICD-10.</span></span></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAYECTORIA -->
+  <section id="trayectoria">
+    <div class="wrap">
+      <div class="eyebrow"><span lang="es">Trayectoria</span><span lang="en">Career</span></div>
+      <h2><span lang="es">De la investigación a la consultoría.</span><span lang="en">From research to consulting.</span></h2>
+      <p class="intro"><span lang="es">Investigación traslacional primero, diagnóstico genómico después y salud digital hoy. El hilo conductor es el mismo: que los datos sirvan a cada paciente.</span><span lang="en">Translational research first, then genomic diagnostics, now digital health. The common thread: making data serve each patient.</span></p>
+      <div class="jobs">
+        <article class="job">
+          <div><div class="when"><span lang="es">jun 2025 — hoy</span><span lang="en">Jun 2025 — today</span></div><div class="co">Kyndryl</div><div class="unit">Senior Genomics &amp; AI Consultant</div></div>
+          <ul>
+            <li><span lang="es">Referente en salud y genómica dentro de Kyndryl España.</span><span lang="en">Kyndryl Spain’s go-to expert in health and genomics.</span></li>
+            <li><span lang="es">Diseño y despliegue de GENIB6P, la plataforma de medicina de precisión de IBSalut en Google Cloud, que hace operativa en toda la comunidad la cartera de pruebas genéticas del SNS.</span><span lang="en">Design and rollout of GENIB6P, IBSalut’s precision-medicine platform on Google Cloud, which puts the Spanish NHS genetic testing portfolio into practice across the region.</span></li>
+            <li><span lang="es">Farmacogenómica con fenoconversión dinámica (CPIC/DPWG), fenotipado con IA de texto clínico a HPO en producción, consentimiento informado digital y catálogo maestro codificado en LOINC, SNOMED CT, HPO y CIE-10.</span><span lang="en">Pharmacogenomics with dynamic phenoconversion (CPIC/DPWG), AI phenotyping from clinical text to HPO in production, digital informed consent and a master catalogue coded in LOINC, SNOMED CT, HPO and ICD-10.</span></li>
+            <li><span lang="es">Integración HL7/FHIR con el LIS y con Emedgene, Illumina Connected Insights y Geneyx; migración de variantes curadas de GRCh37 a GRCh38.</span><span lang="en">HL7/FHIR integration with the LIS and with Emedgene, Illumina Connected Insights and Geneyx; migration of curated variants from GRCh37 to GRCh38.</span></li>
+            <li><span lang="es">Coordinación de proveedores, definición de casos de uso clínicos, documentación de licitaciones y formación y adopción en los hospitales.</span><span lang="en">Vendor orchestration, clinical use-case definition, tender documentation, and training and adoption across hospitals.</span></li>
+            <li><span lang="es">Mi primer proyecto en Kyndryl ganó el Premio ASLAN 2026 en salud digital y el premio interno KATAI 2026.</span><span lang="en">My first Kyndryl project won the 2026 ASLAN Award for digital health and the internal KATAI 2026 award.</span></li>
+          </ul>
+        </article>
+        <article class="job">
+          <div><div class="when"><span lang="es">ene 2022 — may 2025</span><span lang="en">Jan 2022 — May 2025</span></div><div class="co">Fujitsu</div><div class="unit">CoE Data Intelligence</div></div>
+          <ul>
+            <li><b>Project Lead · <span lang="es">Proyecto Génesis, Servicio Murciano de Salud</span><span lang="en">Génesis Project, Murcia Health Service</span></b></li>
+            <li><span lang="es">Dirección del equipo que construyó la plataforma regional de almacenamiento y análisis genómico, alineada con los objetivos de medicina de precisión del Servicio Murciano de Salud.</span><span lang="en">Led the team that built the regional platform for genomic data storage and analysis, aligned with the Murcia Health Service’s precision-medicine goals.</span></li>
+            <li><span lang="es">Análisis funcional con el cliente y relación con clínicos y líderes de opinión regionales.</span><span lang="en">Functional analysis with the client and relations with clinicians and regional opinion leaders.</span></li>
+            <li><span lang="es">Antes, analista funcional y bioinformática del mismo proyecto: diseño de pipelines de análisis genómico y documentación técnica.</span><span lang="en">Previously functional and bioinformatics analyst on the same project: designed genomic analysis pipelines and technical documentation.</span></li>
+            <li><span lang="es">Ponente en el XVI Congreso de la Sociedad Murciana de Cardiología (2023).</span><span lang="en">Speaker at the 16th Murcia Society of Cardiology Congress (2023).</span></li>
+          </ul>
+        </article>
+        <article class="job">
+          <div><div class="when"><span lang="es">jun 2017 — ene 2022</span><span lang="en">Jun 2017 — Jan 2022</span></div><div class="co">NIMGenetics</div><div class="unit">Genomics Data Analyst &amp; Developer</div></div>
+          <ul>
+            <li><span lang="es">Desarrollo de la base de datos de NIMGenetics que integra variantes genéticas con fenotipos.</span><span lang="en">Built NIMGenetics’ database integrating genetic variants with phenotypes.</span></li>
+            <li><span lang="es">Solución automática de anotación HPO sobre textos médicos de pacientes.</span><span lang="en">Automated HPO annotation of patients’ medical texts.</span></li>
+            <li><span lang="es">Automatización de flujos con el LIS GestLab y nuevas aplicaciones para el diagnóstico genómico.</span><span lang="en">Workflow automation with the GestLab LIS and new applications for genomic diagnostics.</span></li>
+            <li><span lang="es">Empecé como doctoranda visitante.</span><span lang="en">Started as a visiting PhD student.</span></li>
+          </ul>
+        </article>
+        <article class="job">
+          <div><div class="when"><span lang="es">sep 2013 — dic 2018</span><span lang="en">Sep 2013 — Dec 2018</span></div><div class="co"><span lang="es">IIS Puerta de Hierro</span><span lang="en">Puerta de Hierro Research Institute</span></div><div class="unit"><span lang="es">Doctoranda i-PFIS (ISCIII) · Oncología Médica</span><span lang="en">i-PFIS PhD fellow (ISCIII) · Medical Oncology</span></div></div>
+          <ul>
+            <li><span lang="es">Heterogeneidad genética en neoplasias hematológicas, con la Dra. Margarita Sánchez-Beato.</span><span lang="en">Genetic heterogeneity in haematological malignancies, mentored by Dr Margarita Sánchez-Beato.</span></li>
+            <li><span lang="es">Del laboratorio al dato: librerías NGS (AmpliSeq, TruSeq, HaloPlex, SureSelect), secuenciación en MiSeq y NextSeq y análisis bioinformático de paneles y exomas.</span><span lang="en">From bench to data: NGS libraries (AmpliSeq, TruSeq, HaloPlex, SureSelect), MiSeq and NextSeq sequencing, and bioinformatic analysis of panels and exomes.</span></li>
+            <li><span lang="es">Estancia de bioinformática en el IOR (Institute of Oncology Research), Suiza, de junio a noviembre de 2016: análisis genómico de la cohorte de transformación del linfoma folicular.</span><span lang="en">Bioinformatics research stay at IOR (Institute of Oncology Research), Switzerland, June–November 2016: genomic analysis of the follicular lymphoma transformation cohort.</span></li>
+          </ul>
+        </article>
+        <article class="job">
+          <div><div class="when">2011 — 2013</div><div class="co"><span lang="es">Primeros pasos</span><span lang="en">Early steps</span></div><div class="unit"><span lang="es">Estancias de investigación</span><span lang="en">Research stays</span></div></div>
+          <ul>
+            <li><span lang="es">INSERM, Université Paris VII (2013): trabajo fin de máster en genética humana, beca Erasmus Prácticas.</span><span lang="en">INSERM, Université Paris VII (2013): master’s thesis in human genetics, Erasmus Placement grant.</span></li>
+            <li><span lang="es">Secugen, Centro de Investigaciones Biológicas del CSIC (2012): prácticas en I+D, beca CRUE-CEPYME.</span><span lang="en">Secugen, CSIC Biological Research Centre (2012): R&amp;D internship, CRUE-CEPYME fellowship.</span></li>
+            <li><span lang="es">Albert Einstein College of Medicine, Nueva York (2011): programa de investigación de verano, beca Goya Mundus.</span><span lang="en">Albert Einstein College of Medicine, New York (2011): summer research programme, Goya Mundus fellowship.</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- HABILIDADES -->
+  <section id="habilidades">
+    <div class="wrap">
+      <div class="eyebrow"><span lang="es">Caja de herramientas</span><span lang="en">Toolkit</span></div>
+      <h2><span lang="es">Habilidades.</span><span lang="en">Skills.</span></h2>
+      <div class="skills" style="margin-top:36px">
+        <div class="skill"><h3><span lang="es">Medicina de precisión</span><span lang="en">Precision medicine</span></h3><div class="chips"><span class="chip">NGS</span><span class="chip"><span lang="es">Exoma y paneles</span><span lang="en">Exome &amp; panels</span></span><span class="chip"><span lang="es">Interpretación de variantes</span><span lang="en">Variant interpretation</span></span><span class="chip">PGx · CPIC · DPWG</span><span class="chip"><span lang="es">Oncogenómica</span><span lang="en">Oncogenomics</span></span><span class="chip">MiSeq · NextSeq</span></div></div>
+        <div class="skill"><h3><span lang="es">Interoperabilidad</span><span lang="en">Interoperability</span></h3><div class="chips"><span class="chip">HL7 v2</span><span class="chip">FHIR</span><span class="chip">CDA</span><span class="chip">IHE</span><span class="chip">LOINC</span><span class="chip">SNOMED CT</span><span class="chip">HPO</span><span class="chip">CIE-10</span></div></div>
+        <div class="skill"><h3><span lang="es">Datos, IA y cloud</span><span lang="en">Data, AI &amp; cloud</span></h3><div class="chips"><span class="chip">Google Cloud</span><span class="chip">Big Data &amp; Data Science</span><span class="chip"><span lang="es">PLN para HPO</span><span lang="en">NLP for HPO</span></span><span class="chip">bcftools</span><span class="chip">CrossMap</span><span class="chip">Emedgene</span><span class="chip">Illumina Connected Insights</span><span class="chip">Geneyx</span></div></div>
+        <div class="skill"><h3><span lang="es">Consultoría</span><span lang="en">Consulting</span></h3><div class="chips"><span class="chip"><span lang="es">Jefatura de proyecto</span><span lang="en">Project leadership</span></span><span class="chip"><span lang="es">Análisis funcional</span><span lang="en">Functional analysis</span></span><span class="chip">QA</span><span class="chip">Presales</span><span class="chip"><span lang="es">Licitaciones</span><span lang="en">Public tenders</span></span><span class="chip">Scrum</span><span class="chip">Project Management</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PONENCIAS -->
+  <section id="presencia">
+    <div class="wrap">
+      <div class="eyebrow"><span lang="es">Ahí fuera</span><span lang="en">Out there</span></div>
+      <h2><span lang="es">Ponencias y premios.</span><span lang="en">Talks &amp; awards.</span></h2>
+      <p class="intro"><span lang="es">De la oncología a la cardiología: la medicina de precisión cruza especialidades. Marco como «Ponente» las que presenté yo.</span><span lang="en">From oncology to cardiology: precision medicine cuts across specialties. Talks marked “Speaker” are the ones I presented.</span></p>
+      <div class="talks">
+        <article class="talk feature">
+          <div class="top"><span class="kind award-k"><span lang="es">Premio</span><span lang="en">Award</span></span><span class="d">2026</span></div>
+          <h3><span lang="es">Premios ASLAN 2026, categoría de salud digital, por GENIB6P</span><span lang="en">ASLAN Awards 2026, digital health category, for GENIB6P</span></h3>
+          <p><span lang="es">Y premio KATAI 2026 de Kyndryl Iberia al equipo del proyecto.</span><span lang="en">Plus Kyndryl Iberia’s KATAI 2026 award for the project team.</span></p>
+        </article>
+        <article class="talk">
+          <div class="top"><span class="kind"><span lang="es">Ponente</span><span lang="en">Speaker</span></span><span class="d">26 · 05 · 2023</span></div>
+          <h3>Nuevo Proyecto Génesis del Servicio Murciano de Salud para Almacenamiento y Análisis Genómico</h3>
+          <p><span lang="es">XVI Congreso de la Sociedad Murciana de Cardiología, mesa de Genética. La Manga del Mar Menor.</span><span lang="en">16th Murcia Society of Cardiology Congress, Genetics session. La Manga del Mar Menor.</span> <a href="https://smcardiologia.es/wp-content/uploads/2023/06/PROGRAMA-DEFINITIVO-XVI-CONGRESO-SMC23.pdf"><span lang="es">Programa</span><span lang="en">Programme</span></a></p>
+        </article>
+        <article class="talk">
+          <div class="top"><span class="kind ghost">ESMO</span><span class="d">2021</span></div>
+          <h3>A gene signature to predict risk of transformation in patients with follicular lymphoma</h3>
+          <p><span lang="es">Comunicación oral, ESMO Congress (virtual). Coautora.</span><span lang="en">Oral presentation, ESMO Congress (virtual). Co-author.</span></p>
+        </article>
+        <article class="talk">
+          <div class="top"><span class="kind ghost">ICML</span><span class="d">2021</span></div>
+          <h3>A mutational gene signature to predict risk of transformation in follicular lymphoma</h3>
+          <p><span lang="es">16th International Conference on Malignant Lymphoma, Lugano (virtual). Coautora.</span><span lang="en">16th International Conference on Malignant Lymphoma, Lugano (virtual). Co-author.</span></p>
+        </article>
+        <article class="talk">
+          <div class="top"><span class="kind ghost">CIBERONC</span><span class="d">2020</span></div>
+          <h3>A method to predict risk of transformation in patients with follicular lymphoma</h3>
+          <p><span lang="es">III Encuentro de Jóvenes Investigadores del CIBERONC (virtual).</span><span lang="en">3rd CIBERONC Young Researchers Meeting (virtual).</span></p>
+        </article>
+        <article class="talk">
+          <div class="top"><span class="kind ghost">ESMO</span><span class="d">2017</span></div>
+          <h3>Follicular lymphoma: clinical and molecular characteristics of histologic transformation</h3>
+          <p><span lang="es">Póster 1004PD. Coautora.</span><span lang="en">Poster 1004PD. Co-author.</span></p>
+        </article>
+        <article class="talk">
+          <div class="top"><span class="kind"><span lang="es">Ponente</span><span lang="en">Speaker</span></span><span class="d">EAHP · 2016</span></div>
+          <h3>Deciphering the genetic foundations of follicular lymphoma transformation to diffuse large B-cell lymphoma</h3>
+          <p><span lang="es">Comunicación oral (ponente), congreso de la European Association for Haematopathology, Basilea.</span><span lang="en">Oral presentation (speaker), European Association for Haematopathology congress, Basel.</span></p>
+        </article>
+        <article class="talk">
+          <div class="top"><span class="kind"><span lang="es">Ponente</span><span lang="en">Speaker</span></span><span class="d">2015</span></div>
+          <h3>Identificación de alteraciones genéticas implicadas en la transformación del linfoma folicular a linfoma B difuso de célula grande</h3>
+          <p><span lang="es">Comunicación oral, XV Congreso SEOM, Madrid.</span><span lang="en">Oral presentation, 15th SEOM Congress, Madrid.</span></p>
+        </article>
+      </div>
+
+      <h3 style="margin:64px 0 18px;font-size:24px"><span lang="es">Publicaciones seleccionadas</span><span lang="en">Selected publications</span></h3>
+      <ol class="pubs">
+        <li><div><b>González-Rincón J</b>, et al. Genomic mutation profile in progressive chronic lymphocytic leukemia patients prior to first-line chemoimmunotherapy with FCR and rituximab maintenance (REM). <span class="j">PLoS One</span> 2021.</div></li>
+        <li><div>Pedrosa L, … <b>González-Rincón J</b>, et al. Proposal and validation of a method to classify genetic subtypes of diffuse large B cell lymphoma. <span class="j">Sci Rep</span> 2021.</div></li>
+        <li><div><b>González-Rincón J</b>, Gómez S, Martínez N, et al. Clonal dynamics monitoring during clinical evolution in chronic lymphocytic leukaemia. <span class="j">Sci Rep</span> 2019;9:975. <a href="https://doi.org/10.1038/s41598-018-37389-7">DOI</a></div></li>
+        <li><div><b>González-Rincón J</b>, Méndez M, Gómez S, et al. Unraveling transformation of follicular lymphoma to diffuse large B-cell lymphoma. <span class="j">PLoS One</span> 2019;14(2):e0212813. <a href="https://doi.org/10.1371/journal.pone.0212813">DOI</a></div></li>
+        <li><div>Barranco, et al. Branched clonal evolution: nodal follicular lymphoma and primary diffuse large B-cell lymphoma of the central nervous system. <span class="j">Haematologica</span> 2019.</div></li>
+        <li><div>Méndez M, et al. Transformed follicular lymphoma in the rituximab era: a report from the Spanish Lymphoma Oncology Group. <span class="j">Hematol Oncol</span> 2019.</div></li>
+        <li><div>Manso R, <b>González-Rincón J</b>, et al. Overlap at the molecular and immunohistochemical levels between angioimmunoblastic T-cell lymphoma and a subgroup of peripheral T-cell lymphomas. <span class="j">Oncotarget</span> 2018. <a href="https://doi.org/10.18632/oncotarget.24592">DOI</a></div></li>
+        <li><div>Franco F, <b>González-Rincón J</b>, et al. Mutational profile of primary breast diffuse large B-cell lymphoma. <span class="j">Oncotarget</span> 2017.</div></li>
+        <li><div>Manso R, et al. Mutations in the JAK/STAT pathway genes and activation of the pathway, a relevant finding in nodal peripheral T-cell lymphoma. <span class="j">Br J Haematol</span> 2017.</div></li>
+        <li><div>Mondejar R, et al. Molecular basis of targeted therapy in T/NK-cell lymphoma/leukemia: a panel of 33 cell lines. <span class="j">PLoS One</span> 2017.</div></li>
+        <li><div>Pérez C, et al. Mutated JAK kinases and deregulated STAT activity are potential therapeutic targets in cutaneous T-cell lymphoma. <span class="j">Haematologica</span> 2015.</div></li>
+        <li><div>Pérez-Callejo D, <b>González-Rincón J</b>, et al. Action and resistance of monoclonal CD20 antibodies therapy in B-cell non-Hodgkin lymphomas. <span class="j">Cancer Treat Rev</span> 2015. <a href="https://doi.org/10.1016/j.ctrv.2015.05.007">DOI</a></div></li>
+        <li><div>Onaindia A, et al. Chronic lymphocytic leukemia cells in lymph nodes show frequent NOTCH1 activation. <span class="j">Haematologica</span> 2015.</div></li>
+        <li><div>Manso R, Rodríguez-Pinilla SM, <b>González-Rincón J</b>, et al. Recurrent presence of the PLCG1 S345F mutation in nodal peripheral T-cell lymphomas. <span class="j">Haematologica</span> 2015. <a href="https://doi.org/10.3324/haematol.2014.113696">DOI</a></div></li>
+      </ol>
+      <p style="margin-top:18px"><a href="https://scholar.google.es/citations?user=VBL-ZlgAAAAJ&amp;hl=es"><span lang="es">Ver todas en Google Scholar →</span><span lang="en">See all on Google Scholar →</span></a></p>
+    </div>
+  </section>
+
+  <!-- DOCENCIA + FORMACIÓN -->
+  <section id="docencia">
+    <div class="wrap duo">
+      <div>
+        <div class="eyebrow"><span lang="es">Compartir conocimiento</span><span lang="en">Sharing knowledge</span></div>
+        <h2 style="font-size:clamp(30px,3.6vw,42px)"><span lang="es">Docencia y mentoría.</span><span lang="en">Teaching &amp; mentoring.</span></h2>
+        <ul class="list">
+          <li><div class="d">2026</div><b><span lang="es">Codirección de TFM</span><span lang="en">Master’s thesis co-supervision</span></b><p><span lang="es">Priorización de fármacos en LLA-T/LBL. UAM y CBM Severo Ochoa (CSIC).</span><span lang="en">Drug prioritisation in T-ALL/LBL. UAM and CBM Severo Ochoa (CSIC).</span></p></li>
+          <li><div class="d"><span lang="es">abr 2026</span><span lang="en">Apr 2026</span></div><b><span lang="es">Farmacogenómica · «Ciencias Ómicas»</span><span lang="en">Pharmacogenomics · “Omics Sciences”</span></b><p><span lang="es">Clase práctica para 3.º del Grado en Biomedicina. Facultad HM CUHMED, Universidad Camilo José Cela.</span><span lang="en">Practical class for third-year Biomedicine. HM CUHMED Faculty, Camilo José Cela University.</span></p></li>
+          <li><div class="d">2019</div><b><span lang="es">Dirección de TFG</span><span lang="en">Bachelor’s thesis supervision</span></b><p><span lang="es">Grado en Ingeniería Biomédica, ETSI de Telecomunicación, Universidad Politécnica de Madrid.</span><span lang="en">BSc Biomedical Engineering, ETSIT, Universidad Politécnica de Madrid.</span> <span class="todo">título</span></p></li>
+        </ul>
+      </div>
+      <div>
+        <div class="eyebrow"><span lang="es">Aprendizaje</span><span lang="en">Learning</span></div>
+        <h2 style="font-size:clamp(30px,3.6vw,42px)"><span lang="es">Formación.</span><span lang="en">Education.</span></h2>
+        <ul class="list">
+          <li><div class="d">2019 — 2021</div><b><span lang="es">Máster en Big Data y Data Science</span><span lang="en">Master’s in Big Data &amp; Data Science</span></b><p><span lang="es">Universidad Autónoma de Madrid, Escuela Politécnica Superior.</span><span lang="en">Universidad Autónoma de Madrid, School of Engineering.</span></p></li>
+          <li><div class="d">2014 — 2019</div><b><span lang="es">Doctorado en Biociencias Moleculares · Oncología y genética</span><span lang="en">PhD in Biomolecular Sciences · Oncology and genetics</span></b><p><span lang="es">Universidad Autónoma de Madrid. Tesis «Clonal Heterogeneity in Lymphoid Neoplasia». Contrato predoctoral i-PFIS del Instituto de Salud Carlos III.</span><span lang="en">Universidad Autónoma de Madrid. Thesis “Clonal Heterogeneity in Lymphoid Neoplasia”. i-PFIS predoctoral fellowship, Instituto de Salud Carlos III.</span></p></li>
+          <li><div class="d">2012 — 2013</div><b><span lang="es">Máster en Genética y Genómica Humana · especialidad en genética médica</span><span lang="en">Master’s in Human Genetics and Genomics · medical genetics track</span></b><p>Universitat de Barcelona.</p></li>
+          <li><div class="d">2007 — 2012</div><b><span lang="es">Licenciatura en Biotecnología</span><span lang="en">Five-year degree in Biotechnology</span></b><p><span lang="es">Universidad Francisco de Vitoria, con el Máster en Dirección y Liderazgo de Empresas Biotecnológicas.</span><span lang="en">Universidad Francisco de Vitoria, with the Master’s in Management and Leadership of Biotech Companies.</span></p></li>
+          <li><div class="d"><span lang="es">Becas</span><span lang="en">Fellowships</span></div>
+            <b>i-PFIS · Instituto de Salud Carlos III</b><p><span lang="es">Contrato predoctoral del doctorado, IIS Puerta de Hierro (2013–2018).</span><span lang="en">Predoctoral fellowship for the PhD, Puerta de Hierro Research Institute (2013–2018).</span></p>
+            <b style="margin-top:10px">Erasmus <span lang="es">Prácticas</span><span lang="en">Placement</span></b><p><span lang="es">Trabajo fin de máster en el INSERM, París (2013).</span><span lang="en">Master’s thesis at INSERM, Paris (2013).</span></p>
+            <b style="margin-top:10px">CRUE-CEPYME</b><p><span lang="es">Prácticas de I+D en Secugen, CSIC (2012).</span><span lang="en">R&amp;D internship at Secugen, CSIC (2012).</span></p>
+            <b style="margin-top:10px">Goya Mundus</b><p><span lang="es">Programa de investigación de verano, Albert Einstein College of Medicine, Nueva York (2011).</span><span lang="en">Summer research programme, Albert Einstein College of Medicine, New York (2011).</span></p></li>
+          <li><div class="d"><span lang="es">Complementaria</span><span lang="en">Other training</span></div><b><span lang="es">Bioinformática traslacional (Lisboa, 2015) · Scrum Master · Project Management Foundations</span><span lang="en">Translational bioinformatics (Lisbon, 2015) · Scrum Master · Project Management Foundations</span></b></li>
+          <li><div class="d"><span lang="es">Idiomas</span><span lang="en">Languages</span></div>
+            <b><span lang="es">Español</span><span lang="en">Spanish</span></b><p><span lang="es">Nativo o bilingüe</span><span lang="en">Native or bilingual</span></p>
+            <b style="margin-top:10px"><span lang="es">Inglés</span><span lang="en">English</span></b><p><span lang="es">Competencia profesional completa</span><span lang="en">Full professional proficiency</span></p>
+            <b style="margin-top:10px"><span lang="es">Francés</span><span lang="en">French</span></b><p><span lang="es">Competencia básica</span><span lang="en">Elementary proficiency</span></p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="contact">
+    <div class="wrap">
+      <div class="eyebrow"><span lang="es">Hablemos</span><span lang="en">Let’s talk</span></div>
+      <h2><span lang="es">¿Estás implantando la Medicina Personalizada de Precisión?</span><span lang="en">Implementing Personalised Precision Medicine?</span></h2>
+      <p class="intro"><span lang="es">Estrategia y hoja de ruta, despliegue de la cartera de pruebas genéticas, datos e IA en salud, farmacogenómica o una charla para tu congreso: escríbeme.</span><span lang="en">Precision-medicine strategy, data and AI in healthcare, pharmacogenomics, interoperability or a talk for your congress: write to me.</span></p>
+      <div class="cta">
+        <a class="btn primary" href="https://www.linkedin.com/in/julia-gonz%C3%A1lez-rinc%C3%B3n-7b789149/"><span lang="es">Escríbeme en LinkedIn</span><span lang="en">Message me on LinkedIn</span> →</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Julia González Rincón</span><span><span lang="es">Actualizado en noviembre de 2026</span><span lang="en">Updated November 2026</span></span></div></footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  function setLang(l){
+    root.setAttribute('data-lang',l); root.setAttribute('lang',l);
+    document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed', b.dataset.set===l?'true':'false');});
+    try{localStorage.setItem('jgr-lang',l);}catch(e){}
+  }
+  document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.set);});});
+  var saved=null; try{saved=localStorage.getItem('jgr-lang');}catch(e){}
+  if(saved==='en'||saved==='es') setLang(saved);
+
+  /* Hero: pila de lecturas de secuenciación con una columna de variante en ámbar */
+  var c=document.getElementById('reads'); if(!c) return;
+  var ctx=c.getContext('2d'), dpr=Math.min(window.devicePixelRatio||1,2);
+  var W=0,H=0,rows=[],rowH=9,gap=5,speed=0.35,varX=0;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function rnd(a,b){return a+Math.random()*(b-a);}
+  function build(){
+    W=c.clientWidth;H=c.clientHeight;c.width=W*dpr;c.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    varX=W*0.72; rows=[];
+    var n=Math.ceil(H/(rowH+gap));
+    for(var i=0;i<n;i++){
+      var reads=[],x=rnd(-200,0);
+      while(x<W*2){var len=rnd(70,180);reads.push({x:x,len:len,v:Math.random()<0.45});x+=len+rnd(10,60);}
+      rows.push({y:i*(rowH+gap)+4,reads:reads,sp:speed*rnd(0.6,1.4)});
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='rgba(255,181,71,0.12)';ctx.fillRect(varX-6,0,12,H);
+    rows.forEach(function(r){
+      r.reads.forEach(function(rd){
+        if(rd.x+rd.len<0||rd.x>W) return;
+        ctx.fillStyle='rgba(63,208,201,0.32)';
+        ctx.beginPath();ctx.roundRect?ctx.roundRect(rd.x,r.y,rd.len,rowH,3):ctx.rect(rd.x,r.y,rd.len,rowH);ctx.fill();
+        if(rd.v && rd.x<varX && rd.x+rd.len>varX){ctx.fillStyle='rgba(255,181,71,0.95)';ctx.fillRect(varX-2,r.y,4,rowH);}
+      });
+    });
+  }
+  function step(){
+    rows.forEach(function(r){
+      r.reads.forEach(function(rd){rd.x-=r.sp;});
+      var last=r.reads[r.reads.length-1];
+      if(r.reads[0].x+r.reads[0].len<-10){var f=r.reads.shift();f.x=last.x+last.len+rnd(10,60);f.len=rnd(70,180);f.v=Math.random()<0.45;r.reads.push(f);}
+    });
+    draw(); requestAnimationFrame(step);
+  }
+  build(); draw();
+  window.addEventListener('resize',function(){build();draw();});
+  if(!reduce) requestAnimationFrame(step);
+})();
+</script>
+</body>
+</html>

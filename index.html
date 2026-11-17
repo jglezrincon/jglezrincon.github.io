@@ -153,6 +153,24 @@ h3{font:600 20px/1.25 var(--display);margin:0;letter-spacing:-.01em}
 .p5 p{margin:0;color:var(--muted);font-size:14.5px}
 @media (max-width:900px){.p5{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.p5{grid-template-columns:1fr}}
+/* Becas */
+.grants{display:grid;grid-template-columns:1.3fr 1fr;gap:18px}
+.grant{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.grant.star{grid-row:span 3;background:linear-gradient(135deg,var(--panel-2),var(--panel));border-color:rgba(255,181,71,.45)}
+.grant .yr{font:500 13px var(--mono);color:var(--muted)}
+.scope{align-self:flex-start;font:500 11.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:2px 8px;background:rgba(63,208,201,.12);color:var(--accent);border:1px solid rgba(63,208,201,.35)}
+.grant.star .scope{background:var(--variant);color:#2a1800;border-color:var(--variant)}
+.grant h3{font-size:22px;font-weight:800}
+.grant.star h3{font-size:30px}
+.grant .by{font-size:14px;color:var(--muted)}
+.grant p{margin:0;font-size:15px}
+.grant .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:14px}
+.grant .facts div{background:var(--bg);padding:16px}
+.grant .facts b{display:block;font:800 30px/1 var(--display);color:var(--variant)}
+.grant .facts span{font-size:13px;color:var(--muted)}
+.grant .gave{margin-top:auto;padding-top:12px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.grant .gave b{color:var(--ink);font-weight:600}
+@media (max-width:900px){.grants{grid-template-columns:1fr}.grant.star{grid-row:auto}}
 /* Map of places */
 .places{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
 .place{font:500 13px var(--mono);border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:var(--panel)}
@@ -195,6 +213,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
       <a href="#vision"><span lang="es">Visión</span><span lang="en">Vision</span></a>
       <a href="#caso"><span lang="es">Caso destacado</span><span lang="en">Featured work</span></a>
       <a href="#trayectoria"><span lang="es">Trayectoria</span><span lang="en">Career</span></a>
+      <a href="#becas"><span lang="es">Becas</span><span lang="en">Fellowships</span></a>
       <a href="#presencia"><span lang="es">Ponencias</span><span lang="en">Talks</span></a>
       <a href="#docencia"><span lang="es">Docencia</span><span lang="en">Teaching</span></a>
     </nav>
@@ -358,6 +377,52 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
     </div>
   </section>
 
+  <!-- BECAS -->
+  <section id="becas">
+    <div class="wrap">
+      <div class="eyebrow"><span lang="es">Becas</span><span lang="en">Fellowships</span></div>
+      <h2><span lang="es">Cada etapa de mi carrera, avalada por una convocatoria competitiva.</span><span lang="en">Every stage of my career, backed by a competitive call.</span></h2>
+      <p class="intro"><span lang="es">Cuatro becas con financiación regional, nacional y europea, en tres países. Me llevaron de Madrid a Nueva York y París, y del laboratorio a la empresa: el mismo puente entre ciencia e industria que hago hoy.</span><span lang="en">Four fellowships with regional, national and European funding, across three countries. They took me from Madrid to New York and Paris, and from the lab to industry: the same bridge between science and business I build today.</span></p>
+      <div class="grants">
+        <article class="grant star">
+          <span class="scope"><span lang="es">Nacional · ISCIII</span><span lang="en">National · ISCIII</span></span>
+          <div class="yr"><span lang="es">Doctorado</span><span lang="en">PhD</span></div>
+          <h3><span lang="es">Contrato predoctoral i-PFIS</span><span lang="en">i-PFIS predoctoral fellowship</span></h3>
+          <div class="by"><span lang="es">Instituto de Salud Carlos III · Acción Estratégica en Salud · IIS Puerta de Hierro</span><span lang="en">Instituto de Salud Carlos III · Strategic Health Action · Puerta de Hierro Research Institute</span></div>
+          <p><span lang="es">Contrato de hasta cuatro años para hacer la tesis en un entorno combinado entre un Instituto de Investigación Sanitaria acreditado y una empresa del sector salud, con estancia obligatoria en la empresa. Una modalidad pensada para formar investigadores que unan el SNS y la industria.</span><span lang="en">A contract of up to four years to complete a PhD across an accredited Health Research Institute and a health-sector company, with a mandatory stay in the company. A scheme designed to train researchers who connect the Spanish NHS and industry.</span></p>
+          <div class="facts">
+            <div><b>4</b><span><span lang="es">años máximo de contrato</span><span lang="en">years maximum contract</span></span></div>
+            <div><b>2</b><span><span lang="es">entornos: hospital e industria</span><span lang="en">settings: hospital and industry</span></span></div>
+            <div><b>12–24</b><span><span lang="es">meses de estancia en empresa</span><span lang="en">months in a company</span></span></div>
+          </div>
+          <p class="by" style="margin-top:6px"><span lang="es">Una de las vías predoctorales más selectivas del ISCIII: el expediente académico se valora en la evaluación y solo pueden presentarse IIS acreditados.</span><span lang="en">One of ISCIII’s most selective predoctoral routes: academic record counts in the evaluation and only accredited Health Research Institutes can apply.</span></p>
+          <div class="gave"><b><span lang="es">Lo que me dio:</span><span lang="en">What it gave me:</span></b> <span lang="es">mi doctorado en heterogeneidad clonal de neoplasias linfoides y mi entrada en NIMGenetics, donde empecé como doctoranda visitante.</span><span lang="en">my PhD on clonal heterogeneity in lymphoid neoplasms, and my way into NIMGenetics, where I started as a visiting PhD student.</span></div>
+        </article>
+        <article class="grant">
+          <span class="scope"><span lang="es">Europea</span><span lang="en">European</span></span>
+          <div class="yr">2013 · París</div>
+          <h3>Erasmus <span lang="es">Prácticas</span><span lang="en">Placement</span></h3>
+          <div class="by">INSERM · Université Paris VII</div>
+          <div class="gave"><b><span lang="es">Lo que me dio:</span><span lang="en">What it gave me:</span></b> <span lang="es">mi trabajo fin de máster en genética humana en un centro de referencia europeo.</span><span lang="en">my master’s thesis in human genetics at a leading European centre.</span></div>
+        </article>
+        <article class="grant">
+          <span class="scope"><span lang="es">Universidad–empresa</span><span lang="en">University–industry</span></span>
+          <div class="yr">2012 · Madrid</div>
+          <h3>CRUE-CEPYME</h3>
+          <div class="by"><span lang="es">Secugen · Centro de Investigaciones Biológicas, CSIC</span><span lang="en">Secugen · CSIC Biological Research Centre</span></div>
+          <div class="gave"><b><span lang="es">Lo que me dio:</span><span lang="en">What it gave me:</span></b> <span lang="es">mi primera experiencia de I+D en una empresa biotecnológica.</span><span lang="en">my first R&amp;D experience in a biotech company.</span></div>
+        </article>
+        <article class="grant">
+          <span class="scope"><span lang="es">Regional · internacional</span><span lang="en">Regional · international</span></span>
+          <div class="yr">2011 · Nueva York</div>
+          <h3>Goya Mundus</h3>
+          <div class="by"><span lang="es">Comunidad de Madrid · Albert Einstein College of Medicine</span><span lang="en">Community of Madrid · Albert Einstein College of Medicine</span></div>
+          <div class="gave"><b><span lang="es">Lo que me dio:</span><span lang="en">What it gave me:</span></b> <span lang="es">investigación biomédica en Estados Unidos cuando aún estudiaba Biotecnología.</span><span lang="en">biomedical research in the United States while still a Biotechnology student.</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- HABILIDADES -->
   <section id="habilidades">
     <div class="wrap">
@@ -462,11 +527,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
           <li><div class="d">2014 — 2019</div><b><span lang="es">Doctorado en Biociencias Moleculares · Oncología y genética</span><span lang="en">PhD in Biomolecular Sciences · Oncology and genetics</span></b><p><span lang="es">Universidad Autónoma de Madrid. Tesis «Clonal Heterogeneity in Lymphoid Neoplasia». Contrato predoctoral i-PFIS del Instituto de Salud Carlos III.</span><span lang="en">Universidad Autónoma de Madrid. Thesis “Clonal Heterogeneity in Lymphoid Neoplasia”. i-PFIS predoctoral fellowship, Instituto de Salud Carlos III.</span></p></li>
           <li><div class="d">2012 — 2013</div><b><span lang="es">Máster en Genética y Genómica Humana · especialidad en genética médica</span><span lang="en">Master’s in Human Genetics and Genomics · medical genetics track</span></b><p>Universitat de Barcelona.</p></li>
           <li><div class="d">2007 — 2012</div><b><span lang="es">Licenciatura en Biotecnología</span><span lang="en">Five-year degree in Biotechnology</span></b><p><span lang="es">Universidad Francisco de Vitoria, con el Máster en Dirección y Liderazgo de Empresas Biotecnológicas.</span><span lang="en">Universidad Francisco de Vitoria, with the Master’s in Management and Leadership of Biotech Companies.</span></p></li>
-          <li><div class="d"><span lang="es">Becas</span><span lang="en">Fellowships</span></div>
-            <b>i-PFIS · Instituto de Salud Carlos III</b><p><span lang="es">Contrato predoctoral del doctorado, IIS Puerta de Hierro (2013–2018).</span><span lang="en">Predoctoral fellowship for the PhD, Puerta de Hierro Research Institute (2013–2018).</span></p>
-            <b style="margin-top:10px">Erasmus <span lang="es">Prácticas</span><span lang="en">Placement</span></b><p><span lang="es">Trabajo fin de máster en el INSERM, París (2013).</span><span lang="en">Master’s thesis at INSERM, Paris (2013).</span></p>
-            <b style="margin-top:10px">CRUE-CEPYME</b><p><span lang="es">Prácticas de I+D en Secugen, CSIC (2012).</span><span lang="en">R&amp;D internship at Secugen, CSIC (2012).</span></p>
-            <b style="margin-top:10px">Goya Mundus</b><p><span lang="es">Programa de investigación de verano, Albert Einstein College of Medicine, Nueva York (2011).</span><span lang="en">Summer research programme, Albert Einstein College of Medicine, New York (2011).</span></p></li>
           <li><div class="d"><span lang="es">Complementaria</span><span lang="en">Other training</span></div><b><span lang="es">Bioinformática traslacional (Lisboa, 2015) · Scrum Master · Project Management Foundations</span><span lang="en">Translational bioinformatics (Lisbon, 2015) · Scrum Master · Project Management Foundations</span></b></li>
           <li><div class="d"><span lang="es">Idiomas</span><span lang="en">Languages</span></div>
             <b><span lang="es">Español</span><span lang="en">Spanish</span></b><p><span lang="es">Nativo o bilingüe</span><span lang="en">Native or bilingual</span></p>
